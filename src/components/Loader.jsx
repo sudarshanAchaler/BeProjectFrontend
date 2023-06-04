@@ -6,7 +6,7 @@ const Loader = () => {
     <div className="container">
       <h1 className="text-center mt-5 pt-5"><Image src="/chat.png" height={50} width={50} className="mx-2" alt="we-share-logo"/>WeShare</h1>
       <h4 className="text-center mt-3 pt-3">
-        I'm obsessed with perfection. I want to work.<br></br> I don't want to take this for granted.
+        I am obsessed with perfection. I want to work.<br></br> I do not want to take this for granted.
       </h4>
       <div
         className="d-flex align-items-center justify-content-center"
