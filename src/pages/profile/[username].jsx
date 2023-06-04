@@ -28,7 +28,7 @@ const othersProfile = () => {
     setIsLoading(true);
     setError(null);
     const resp = await fetch(
-      "http://127.0.0.1:8000/auth/profile/" + username + "/",
+      "http://13.126.201.102:8000/auth/profile/" + username + "/",
       {
         method: "GET",
         headers: {

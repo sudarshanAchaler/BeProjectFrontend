@@ -6,6 +6,7 @@ import { BsStar } from "react-icons/bs";
 import PostCreate from "@/components/PostCreate";
 
 const home = () => {
+  
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -13,7 +14,7 @@ const home = () => {
   const getFeed = async () => {
     setIsLoading(true);
     setError(null);
-    const response = await fetch("http://127.0.0.1:8000/posts/", {
+    const response = await fetch("http://13.126.201.102:8000/posts/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +77,7 @@ const home = () => {
           )}
         </div>
         {!isLoading && (
-          <Feed posts={posts} user={user} NewPostAdded={NewPostAdded} />
+          <Feed posts={posts} setPosts={setPosts} user={user} NewPostAdded={NewPostAdded} />
         )}
         {error && <div className="error my-2">{error}</div>}
       </div>

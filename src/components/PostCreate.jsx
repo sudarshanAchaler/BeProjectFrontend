@@ -26,7 +26,7 @@ const PostCreate = ({ user, posts, setPosts }) => {
       data.append("image", file);
     }
     data.append("body", postBody);
-    const resp = await fetch("http://127.0.0.1:8000/posts/", {
+    const resp = await fetch("http://13.126.201.102:8000/posts/", {
       method: "POST",
       headers: { Authorization: "Token " + user.token },
       body: data,

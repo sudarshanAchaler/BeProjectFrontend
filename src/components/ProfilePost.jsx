@@ -37,23 +37,11 @@ const ProfilePost = ({post,profilePicture}) => {
               style={{ borderRadius: "15px", width: "90%" }}
             />
           </div>
-          <div className="my-2 d-flex justify-content-evenly ">
-            <button className="btn  small text-secondary">
-              <BsChat className="mx-2" />
-              <span className="fs-6">3</span>
-            </button>
-            <button className="btn  small text-secondary">
-              <BsArrowRepeat className="mx-2" />
-              <span className="fs-6">3</span>
-            </button>
-            <button className="btn  small text-secondary">
-              <BsHeart className="mx-2" />
-              <span className="fs-6">{post.likes_count}</span>
-            </button>
-            <button className="btn  small text-secondary">
-              <BsUpload className="mx-2" />
-              <span className="fs-6">3</span>
-            </button>
+          <div className="mt-2 mb-3 d-flex justify-content-evenly align-items-center ">
+            <span className="badge rounded-pill text-bg-danger fw-normal mx-2">Negative {post.negative.toFixed(3)}%</span>
+            <span className="badge rounded-pill text-bg-warning fw-normal mx-2">Neutral {post.neutral.toFixed(3)}%</span>
+            <span className="badge rounded-pill text-bg-success fw-normal mx-2">Positve {post.positve.toFixed(3)}%</span>
+            <span className="badge rounded-pill text-bg-primary fw-normal mx-2">Compound {post.compound.toFixed(3)}</span>
           </div>
         </div>
       </div>

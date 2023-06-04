@@ -48,7 +48,7 @@ const completeProfile = () => {
     const data = new FormData();
     data.append("cover", coverImage);
     data.append("profile", profileImage);
-    const resp = await fetch("http://127.0.0.1:8000/auth/addUserImages/", {
+    const resp = await fetch("http://13.126.201.102:8000/auth/addUserImages/", {
       method: "PATCH",
       headers: { Authorization: "Token " + user.token },
       body: data,

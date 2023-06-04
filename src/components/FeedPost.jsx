@@ -1,22 +1,34 @@
 import Link from "next/link";
 import {
-  BsChatDotsFill,
-  BsArrowRepeat,
-  BsHeart,
-  BsUpload,
   BsThreeDotsVertical,
   BsPatchCheckFill,
-  BsPencilFill,
   BsTrashFill,
-  BsAppIndicator,
 } from "react-icons/bs";
 import { useAuthContext } from "@/hooks/useAuthContext";
-import CommentCreate from "./CommentCreate";
+import { useState } from "react";
 
-const FeedPost = ({ post }) => {
+const FeedPost = ({ post,posts,setPosts }) => {
   const { user } = useAuthContext();
-  const handleDelete = () => {
-    console.log("deleted");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(null);
+
+  const handleDelete = async(postId) => {
+    setIsLoading(true);
+    setError(null);
+    const resp = await fetch("http://13.126.201.102:8000/posts/"+ postId, {
+      method: "DELETE",
+      headers: { Authorization: "Token " + user.token }
+    });
+    if (!resp.ok) {
+      console.log("err")
+      setIsLoading(false);
+      setError("Got an error while deleting a post");
+    }
+    if (resp.ok) {
+      console.log("no err")
+      setIsLoading(false);
+      setPosts(posts.filter(item => item.id !== postId));
+    }
   };
   return (
     <>
@@ -60,36 +72,22 @@ const FeedPost = ({ post }) => {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
               >
-                {(user && post.author == user.user.id) && (
+                {user && post.author == user.user.id && (
                   <>
                     <li>
-                      <Link
-                        className="dropdown-item"
-                        href={"/posts/" + post.id}
-                      >
-                        <BsPencilFill className="mx-1" /> Edit
-                      </Link>
-                    </li>
-                    <li>
-                      <button className="dropdown-item" onClick={handleDelete}>
+                      <button className="dropdown-item" onClick={() =>handleDelete(post.id)}>
                         <BsTrashFill className="mx-1" /> Delete
                       </button>
                     </li>
                   </>
                 )}
-
-                <li>
-                  <a className="dropdown-item" href={"/posts/" + post.id}>
-                    <BsAppIndicator className="mx-1" /> View
-                  </a>
-                </li>
               </ul>
             </div>
           </div>
           <div className="content small">{post.body}</div>
 
           {post.media != "" && (
-            <div className="images pe-2 my-2 ">
+            <div className="images pe-2 my-2 mb-5 ">
               <img
                 src={post.media}
                 alt=""
@@ -99,34 +97,11 @@ const FeedPost = ({ post }) => {
             </div>
           )}
 
-          <div className="mt-2 mb-3 d-flex justify-content-evenly ">
-            <button
-              className="btn  small text-secondary"
-              // type="button"
-              // data-bs-toggle="collapse"
-              // data-bs-target="#commentCollapse"
-              // aria-expanded="false"
-              // aria-controls="commentCollapse"
-            >
-              <BsChatDotsFill className="mx-1" />
-              <span className="fs-6">3</span>
-            </button>
-            <button className="btn  small text-secondary">
-              <BsArrowRepeat className="mx-1" />
-              <span className="fs-6">3</span>
-            </button>
-            <button className="btn  small text-secondary">
-              <BsHeart className="mx-1" />
-              <span className="fs-6">10</span>
-            </button>
-            <button className="btn  small text-secondary">
-              <BsUpload className="mx-1" />
-              <span className="fs-6">3</span>
-            </button>
-          </div>
-
-          <div className="collapse" id="commentCollapse">
-            <CommentCreate />
+          <div className="mt-2 mb-3 d-flex justify-content-evenly align-items-center ">
+            <span className="badge rounded-pill text-bg-danger fw-normal">Negative {post.negative.toFixed(3)}%</span>
+            <span className="badge rounded-pill text-bg-warning fw-normal">Neutral {post.neutral.toFixed(3)}%</span>
+            <span className="badge rounded-pill text-bg-success fw-normal">Positve {post.positve.toFixed(3)}%</span>
+            <span className="badge rounded-pill text-bg-primary fw-normal">Compound {post.compound.toFixed(3)}</span>
           </div>
         </div>
       </div>

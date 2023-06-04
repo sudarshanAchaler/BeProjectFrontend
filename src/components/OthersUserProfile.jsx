@@ -10,7 +10,7 @@ const OthersUserProfile = ({usr,followingUser}) => {
   const handleFollowToggle = async ()=>{
     setIsLoading(true)
     setError(null)
-    const response = await fetch("http://127.0.0.1:8000/auth/profile/"+usr.username+"/follow/", {
+    const response = await fetch("http://13.126.201.102:8000/auth/profile/"+usr.username+"/follow/", {
       method: "GET",
       headers: {"Authorization":"Token "+user.token },
     });

@@ -22,7 +22,7 @@ const myProfile = () => {
   const fetchUser = async () => {
     setIsLoading(true);
     setError(null);
-    const resp = await fetch("http://127.0.0.1:8000/auth/me/", {
+    const resp = await fetch("http://13.126.201.102:8000/auth/me/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
